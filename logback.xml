@@ -1,0 +1,25 @@
+<configuration debug="false">
+
+ <logger name="grisu" level="debug"/>
+ <logger name="grith" level="debug"/>
+
+
+  <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <file>${user.home}/.grid/grid-client.debug</file>
+    <append>true</append>
+    <!-- encoders are assigned the type
+         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+    <encoder>
+      <pattern>%-30(%d{HH:mm:ss.SSS} [%level] [%thread]) [%logger{0}] csid=[%X{session}] user=[%X{user}] cmdid=[%X{cmdid}] - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+
+<!--  <consolePlugin /> -->
+
+  <root>
+    <level value="warn" />
+    <appender-ref ref="FILE" />
+  </root>
+</configuration>
+
