@@ -1,7 +1,11 @@
 #!/usr/bin/groovy
 
 import grisu.control.ServiceInterface
+import grisu.frontend.control.login.LoginManager
 import grisu.frontend.model.job.JobObject
+import grisu.model.FileManager
+import grith.jgrith.cred.X509Cred
+import grith.jgrith.cred.callbacks.StaticCallback
 
 
 
@@ -75,7 +79,7 @@ class grisu_probe {
 			add_log 'Submission successful'
 			
 			File success_file = new File(output_dir, "success_"+new Date().getTime())
-			success_file.setText(new Date().toString()+': '+jobname
+			success_file.setText(new Date().toString()+': '+jobname)
 
 		} catch (all) {
 			add_log 'Submission failed: '+all.getLocalizedMessage()
