@@ -9,7 +9,7 @@ import grith.jgrith.cred.callbacks.StaticCallback
 
 
 
-@GrabResolver(name='nesi', root='http://code.ceres.auckland.ac.nz/nexus/content/repositories/releases/')
+//@GrabResolver(name='nesi', root='http://code.ceres.auckland.ac.nz/nexus/content/repositories/releases/')
 @GrabResolver(name='nesi', root='http://code.ceres.auckland.ac.nz/nexus/content/repositories/public')
 @Grab(group='grisu.frontend', module='grisu-client', version='0.5.4')
 @Grab(group='org.bouncycastle', module='bcprov-jdk16', version='1.45')
