@@ -64,7 +64,7 @@ class grisu_probe {
 			add_log 'Downloading stdout for job: '+job.getJobname()
 			def stdout = job.getStdOutContent()
 
-			if ( stdout == file_content ) {
+			if ( stdout != file_content ) {
 				throw new RuntimeException("Content mismatch")
 			} else {
 				add_log "Content matches"
@@ -80,13 +80,13 @@ class grisu_probe {
 			add_log 'Submission successful'
 			
 			File success_file = new File(output_dir, "success_"+new Date().getTime())
-			success_file.setText(new Date().toString()+': '+jobname)
+			success_file.setText(new Date().toString()+': '+jobname+'\t'+'success\n')
 
 		} catch (all) {
 			add_log 'Submission failed: '+all.getLocalizedMessage()
 			File error_file = new File(output_dir, "error_"+new Date().getTime())
 		//	error_file.setText("Job submission failed\n"+Throwables.getStackTraceAsString(all))
-			error_file.setText(new Date().toString()+': '+all.getLocalizedMessage())
+			error_file.setText(new Date().toString()+': '+jobname+'\t'+all.getLocalizedMessage()+'\n')
 		}
 	}
 	

@@ -6,8 +6,8 @@ E_CRITICAL="2"
 E_UNKNOWN="3"
 
 # Sanity check
-if [ $# -ne 2 ]; then
-        echo "Usage: $0 commandline1 commandline2"
+if [ $# -ne 1 ]; then
+        echo "Usage: $0 path_to_output"
         exit ${E_UNKNOWN}
 fi
 
@@ -18,19 +18,27 @@ then
 	exit ${E_UNKNOWN}
 fi
 
-LS_OUTPUT=`ls $1/error*`
-
+LS_OUTPUT=`ls $1/error* 2> /dev/null`
+ERRORS=0
 for file in $LS_OUTPUT; do
 	cat "$file" >> "$1/archive"
-        rm "$file"
-	echo
+    rm "$file"
+    ERRORS=$((ERRORS + 1))
+done
+
+LS_OUTPUT=`ls $1/success* 2> /dev/null`
+SUCCESS=0
+for file in $LS_OUTPUT; do
+	cat "$file" >> "$1/archive"
+    rm "$file"
+    SUCCESS=$((SUCCESS + 1))
 done
 
 
-if grep -q "succeeded!" <<< $COMMAND; then
-        echo "OK - $1 $2 working"
+if [ "$ERRORS" -eq "0" ]; then
+        echo "OK - $SUCCESS submission(s) successful"
         exit ${E_SUCCESS}
-        else
-        echo "CRITICAL - $1 $2 not working"
+else
+        echo "CRITICAL - $ERRORS submission(s) failed ($SUCCESS submissions successful)"
         exit ${E_CRITICAL}
 fi
