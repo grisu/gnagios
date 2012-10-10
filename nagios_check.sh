@@ -38,6 +38,7 @@ done
 if [ "$ERRORS" -eq "0" ]; then
 	if [ "$SUCCESS" -eq "0" ]; then
 		echo "OK - No submissions finished"
+		exit ${E_UNKNOW}
 	else
         echo "OK - $SUCCESS submission(s) successful"
         exit ${E_SUCCESS}
