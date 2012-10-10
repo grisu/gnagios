@@ -36,8 +36,12 @@ done
 
 
 if [ "$ERRORS" -eq "0" ]; then
+	if [ "$SUCCESS" -eq "0" ]; then
+		echo "OK - No submissions finished"
+	else
         echo "OK - $SUCCESS submission(s) successful"
         exit ${E_SUCCESS}
+	fi
 else
         echo "CRITICAL - $ERRORS submission(s) failed ($SUCCESS submissions successful)"
         exit ${E_CRITICAL}
