@@ -11,17 +11,11 @@ if [ $# -ne 1 ]; then
         exit ${E_UNKNOWN}
 fi
 
-# checking whether probe is running
-if ! ps ax | grep -v grep | grep grisu_probe > /dev/null
-then
-	echo "grisu_probe not running"
-	exit ${E_UNKNOWN}
-fi
 
 LS_OUTPUT=`ls $1/error* 2> /dev/null`
 ERRORS=0
 for file in $LS_OUTPUT; do
-	cat "$file" >> "$1/archive"
+        cat "$file" >> "$1/archive"
     rm "$file"
     ERRORS=$((ERRORS + 1))
 done
@@ -29,21 +23,19 @@ done
 LS_OUTPUT=`ls $1/success* 2> /dev/null`
 SUCCESS=0
 for file in $LS_OUTPUT; do
-	cat "$file" >> "$1/archive"
+        cat "$file" >> "$1/archive"
     rm "$file"
     SUCCESS=$((SUCCESS + 1))
 done
 
 
 if [ "$ERRORS" -eq "0" ]; then
-	if [ "$SUCCESS" -eq "0" ]; then
-		echo "OK - No submissions finished"
-		exit ${E_UNKNOW}
-	else
+        if [ "$SUCCESS" -eq "0" ]; then
+                echo "OK - No submissions finished"
+        else
         echo "OK - $SUCCESS submission(s) successful"
         exit ${E_SUCCESS}
-	fi
+        fi
 else
         echo "CRITICAL - $ERRORS submission(s) failed ($SUCCESS submissions successful)"
         exit ${E_CRITICAL}
-fi
