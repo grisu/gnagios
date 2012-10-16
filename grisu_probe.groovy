@@ -34,6 +34,7 @@ class grisu_probe {
 
 	private void submit() {
 
+		def jobname
 		try {
 
 			long start = new Date().getTime()
@@ -70,7 +71,7 @@ class grisu_probe {
 				add_log "Content matches"
 			}
 
-			def jobname = job.getJobname()
+			jobname = job.getJobname()
 
 			add_log 'Cleaning job: '+job.getJobname()
 			job.kill(true)
